@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane prefHeight="740.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.twadeclark.tailwindtrader.HelloController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+   <children>
+      <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Bulk">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Saved Price Data" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Button fx:id="RefreshSavedPriceData" layoutX="132.0" layoutY="636.0" mnemonicParsing="false" onAction="#onRefreshSavedPriceDataButtonClick" text="Refresh" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="132.0" />
+                        <ListView fx:id="SavedPriceDataFilesListView" layoutX="314.0" layoutY="44.0" prefWidth="290.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="44.0" />
+                        <TextField fx:id="PctStratsToKeepTextField" layoutX="1087.0" layoutY="44.0" text="3" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="44.0" />
+                        <Label layoutX="973.0" layoutY="48.0" text="Pct of Strats to Keep" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="48.0" />
+                        <Button fx:id="BulkRunButton" layoutX="314.0" layoutY="632.0" mnemonicParsing="false" onAction="#BulkRunButtonClick" text="Bulk Run" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="632.0" />
+                        <Button fx:id="StopBulkRunButton" layoutX="551.0" layoutY="632.0" mnemonicParsing="false" onAction="#StopBulkRunButtonClick" text="Stop Run" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="632.0" />
+                        <TextField fx:id="BulkRunUpdateTextField" editable="false" layoutX="377.0" layoutY="10.0" prefHeight="25.0" prefWidth="154.0" AnchorPane.leftAnchor="377.0" AnchorPane.topAnchor="10.0" />
+                        <Label layoutX="314.0" layoutY="14.0" text="Evaluating:" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="14.0" />
+                        <ProgressBar fx:id="loadProgressBar" layoutY="652.0" prefHeight="18.0" prefWidth="754.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <ScrollPane layoutX="314.0" layoutY="44.0" prefWidth="302.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="44.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <VBox fx:id="BulkRunVBox" layoutX="-33.0" layoutY="-211.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <Button layoutX="721.0" layoutY="632.0" mnemonicParsing="false" onAction="#RefreshResultsFilesTableView" text="Refresh" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="721.0" />
+                        <ListView fx:id="ResultsFilesListView" layoutX="625.0" layoutY="44.0" prefHeight="582.0" prefWidth="300.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="625.0" AnchorPane.topAnchor="44.0" />
+                        <TextArea fx:id="GenerateStrategyFileTextArea" layoutX="1036.0" layoutY="80.0" prefWidth="300.0" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="160.0" />
+                        <Button layoutX="1104.0" layoutY="124.0" mnemonicParsing="false" onAction="#onGenerateStrategyFileButtonClick" prefWidth="150.0" text="Generate Strategy File" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="124.0" />
+                         <ComboBox fx:id="SelectBrokerComboBox" layoutX="1087.0" layoutY="84.0" prefWidth="150.0" value="Alpaca_Stocks" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="84.0">
+                             <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                     <String fx:value="Alpaca_Stocks" />
+                                     <String fx:value="Alpaca_Crypto" />
+                                 </FXCollections>
+                             </items>
+                         </ComboBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="View">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <ListView fx:id="BulkResultsFilesListView" layoutX="14.0" layoutY="14.0" prefHeight="615.0" prefWidth="200.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Button fx:id="BulkResultsFilesButton" layoutX="150.0" layoutY="635.0" mnemonicParsing="false" onAction="#BulkResultsFilesButtonClick" prefHeight="25.0" prefWidth="65.0" text="Refresh" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="150.0" />
+                        <TableView fx:id="BulkResultsTableView" layoutX="306.0" layoutY="14.0" prefHeight="433.0" prefWidth="728.0" AnchorPane.bottomAnchor="234.0" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="14.0" />
+                        <TableView fx:id="BulkResultsCompareTableView" layoutX="230.0" layoutY="448.0" prefHeight="86.0" prefWidth="728.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="230.0" />
+                        <StackedBarChart fx:id="VisualizedStackedBarChart" layoutX="815.0" layoutY="35.0" opacity="0.0" prefHeight="66.0" prefWidth="263.0" AnchorPane.bottomAnchor="580.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="35.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedBarChart>
+                        <CheckBox fx:id="FilterResultsCheckBox" layoutX="14.0" layoutY="646.0" mnemonicParsing="false" selected="true" text="Hide Low Volume" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" />
+                        <Label layoutX="972.0" layoutY="14.0" text="Final Decile Total:" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="14.0" />
+                        <TextField fx:id="FinalDecileTotalTextField" layoutX="1087.0" layoutY="10.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                        <Label layoutX="972.0" layoutY="47.0" text="Total Trades:" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="47.0" />
+                        <TextField fx:id="TotalTradesTextField" layoutX="1087.0" layoutY="43.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="43.0" />
+                        <ScatterChart fx:id="BulkViewScatterChart" layoutX="230.0" layoutY="538.0" prefHeight="85.0" prefWidth="728.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="230.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </ScatterChart>
+                        <BarChart fx:id="VisualizedBarChart" animated="false" layoutX="1034.0" layoutY="78.0" legendVisible="false" onMouseClicked="#onVisualizedBarChartClicked" prefHeight="589.0" prefWidth="266.0" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="78.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <CategoryAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <TableView fx:id="BulkResultsScatterTableView" layoutX="969.0" layoutY="109.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="964.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="109.0" />
+                        <Button layoutX="969.0" layoutY="78.0" mnemonicParsing="false" onAction="#onBulkResultsScatterTableViewClicked" text="refresh" />
+                        <TextField fx:id="SortingBinsTextField" layoutX="1151.0" layoutY="78.0" prefHeight="25.0" prefWidth="85.0" text="9" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="78.0" />
+                        <Label layoutX="1088.0" layoutY="82.0" text="Bins:" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="82.0" />
+                        <CheckBox fx:id="FilterResultsHide18CheckBox" layoutX="14.0" layoutY="627.0" mnemonicParsing="false" selected="true" text="Hide 1 and 8" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="14.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Test">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="ShowFileListButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onShowFileListButtonClick" text="Show File List" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <ListView fx:id="FileSelectListView" layoutX="14.0" layoutY="53.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="54.0" />
+                        <Button fx:id="LoadFileButton" layoutX="238.0" layoutY="14.0" mnemonicParsing="false" onAction="#onLoadFileButtonClick" text="Load File" AnchorPane.leftAnchor="238.0" AnchorPane.topAnchor="14.0" />
+                        <ListView fx:id="PatternQtyListView" layoutX="238.0" layoutY="54.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="452.0" AnchorPane.topAnchor="54.0" />
+                        <TextArea fx:id="LoadFileDetailsTextArea" layoutX="452.0" layoutY="54.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="238.0" AnchorPane.topAnchor="54.0" />
+                        <Button fx:id="RunBacktestButton" layoutX="670.0" layoutY="14.0" mnemonicParsing="false" text="Run Backtest" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="14.0" />
+                        <TextField fx:id="TopPatternsToRun" layoutX="670.0" layoutY="54.0" prefHeight="25.0" prefWidth="68.0" promptText="10" text="10" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="54.0" />
+                        <TextArea fx:id="ResultsTextArea" layoutX="670.0" layoutY="138.0" prefHeight="116.0" prefWidth="266.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="138.0" />
+
+                        <Label layoutX="755.0" layoutY="99.0" text="History Length" AnchorPane.leftAnchor="755.0" AnchorPane.topAnchor="99.0" />
+                         <ComboBox fx:id="HistoryLengthCB" layoutX="670.0" layoutY="95.0" prefHeight="25.0" prefWidth="68.0" value="0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="95.0">
+                             <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                     <String fx:value="0" />
+                                     <String fx:value="1" />
+                                     <String fx:value="2" />
+                                     <String fx:value="2 - 1" />
+                                     <String fx:value="3" />
+                                     <String fx:value="3 - 2 - 1" />
+                                     <String fx:value="4" />
+                                 </FXCollections>
+                             </items>
+                         </ComboBox>
+                        <Label layoutX="755.0" layoutY="58.0" text="Top Patterns" AnchorPane.leftAnchor="755.0" AnchorPane.topAnchor="58.0" />
+                        <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="900.0" progress="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="268.0" />
+                        <TableView fx:id="BigResultsTableView" layoutX="14.0" layoutY="299.0" prefHeight="200.0" prefWidth="638.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="300.0">
+                        </TableView>
+                        <TableView fx:id="TradeLogTableView" layoutX="670.0" layoutY="300.0" prefHeight="200.0" prefWidth="565.0" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="300.0" />
+                        <TabPane layoutX="8.0" layoutY="512.0" prefHeight="154.0" prefWidth="916.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="512.0">
+                          <tabs>
+                            <Tab text="line">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <LineChart fx:id="PnLlineChart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <xAxis>
+                                              <NumberAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </LineChart>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab text="scatter">
+                              <content>
+                                <AnchorPane>
+                                       <children>
+                                          <ScatterChart fx:id="PnLScatterChart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <xAxis>
+                                              <NumberAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </ScatterChart>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                        <Button fx:id="ClearLoadButton" layoutX="365.0" layoutY="14.0" mnemonicParsing="false" onAction="#onClearLoadButtonClick" text="Clear Load" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="14.0" />
+                        <Button fx:id="StopBacktestButton" layoutX="848.0" layoutY="14.0" mnemonicParsing="false" text="Stop Backtest" AnchorPane.leftAnchor="848.0" AnchorPane.topAnchor="14.0" />
+                        <ListView fx:id="PatternsForConfigFileListView" layoutX="1035.0" layoutY="54.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="1035.0" AnchorPane.topAnchor="54.0" />
+                        <Button fx:id="AddPatternToListButton" layoutX="990.0" layoutY="196.0" mnemonicParsing="false" onAction="#onAddPatternToListButtonClick" text="Add" AnchorPane.leftAnchor="990.0" AnchorPane.topAnchor="196.0" />
+                        <Button fx:id="RemovePatternFromListButton" layoutX="969.0" layoutY="229.0" mnemonicParsing="false" onAction="#onRemovePatternFromListButtonClick" text="Remove" AnchorPane.leftAnchor="969.0" AnchorPane.topAnchor="229.0" />
+                        <Button fx:id="GeneratePatternsForConfigFileButton" layoutX="1170.0" layoutY="14.0" mnemonicParsing="false" onAction="#onGeneratePatternsForConfigFileButtonClick" text="Generate" AnchorPane.leftAnchor="1170.0" AnchorPane.topAnchor="14.0" />
+                        <Button fx:id="TopTiersButton" layoutX="1035.0" layoutY="14.0" mnemonicParsing="false" onAction="#TopTiersButtonClick" text="Top Tiers" />
+                        <TextField fx:id="Security" disable="true" layoutX="478.0" layoutY="14.0" AnchorPane.leftAnchor="478.0" AnchorPane.topAnchor="14.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab text="Trade">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <Label fx:id="lastBarLabel" layoutX="877.0" layoutY="87.0" text="last bar:" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                         <Button fx:id="StartButton" onAction="#onStartButtonClick" text="Start" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="StopButton" disable="true" onAction="#onStopButtonClick" text="Stop" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                        <TextArea fx:id="LoadoutChecklistTextArea" layoutX="6.0" layoutY="7.0" prefHeight="220.0" prefWidth="320.0" text="Loadout Checklist" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea fx:id="OrderManagerTextArea" layoutX="610.0" layoutY="260.0" prefHeight="220.0" prefWidth="610.0" text="Order Manager" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="240.0" />
+                        <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="722.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="722.0" AnchorPane.topAnchor="26.0">
+                           <image>
+                              <Image url="@/TailWindLogo.jpg" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="StrategyManagerTextArea" layoutX="-7.0" layoutY="466.0" prefHeight="220.0" text="Strategy Manager" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="480.0" />
+                        <TextArea fx:id="DataFeedManagerTextArea" layoutY="260.0" prefHeight="220.0" prefWidth="610.0" text="Data Feed" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="240.0" />
+                        <TextArea fx:id="ScratchTextArea" layoutX="340.0" layoutY="107.0" prefHeight="220.0" prefWidth="320.0" text="Scratch" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="BrokerAssetsButton" layoutX="670.0" layoutY="195.0" mnemonicParsing="false" onAction="#onBrokerAssetsButtonClick" text="Broker Assets" AnchorPane.leftAnchor="670.0" AnchorPane.topAnchor="195.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Load">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Load New" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="Ticker" textAlignment="RIGHT" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="69.0" />
+                        <TextField fx:id="TickerToLoad" prefWidth="172.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="65.0" />
+                        <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Months of History" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="109.0" />
+                         <ComboBox fx:id="HistoryLength" prefWidth="172.0" value="12" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="105.0">
+                             <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                     <String fx:value="1" />
+                                     <String fx:value="2" />
+                                     <String fx:value="3" />
+                                     <String fx:value="6" />
+                                     <String fx:value="12" />
+                                     <String fx:value="24" />
+                                     <String fx:value="36" />
+                                 </FXCollections>
+                             </items>
+                         </ComboBox>
+                        <ComboBox fx:id="BrokerSelect" prefWidth="172.0" value="Alpaca Stock" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="145.0">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Alpaca Stock" />
+                                 <String fx:value="Alpaca Crypto" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Broker" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="148.0" />
+                        <Button fx:id="LoadDataFromBrokerButton" mnemonicParsing="false" onAction="#onLoadDataFromBrokerButtonClick" text="Load New" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="226.0" />
+                        <TextArea fx:id="LoadedDataPreview" prefHeight="356.0" prefWidth="200.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="266.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

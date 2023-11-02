@@ -1,0 +1,4 @@
+.my-bar-chart .chart-bar .data {
+    -fx-bar-fill: #ff0000; /* Red bars */
+    -fx-padding: 0.25em 0em; /* Add space between the bars */
+}
